@@ -3,7 +3,6 @@
 // Focus: Accessibility, Dynamic Content, UX
 // ============================================
 
-// Event Data Store
 const eventsData = [
     {
         id: 1,
