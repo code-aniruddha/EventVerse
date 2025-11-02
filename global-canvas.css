@@ -1,0 +1,79 @@
+/* ======================================
+   GLOBAL 3D CANVAS BACKGROUND
+   Applied to all pages
+   ====================================== */
+
+/* Global Canvas Container */
+#global-canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* Global 3D Canvas */
+#global-canvas {
+    width: 100%;
+    height: 100%;
+    opacity: 0.4;
+}
+
+[data-theme="light"] #global-canvas {
+    opacity: 0.25;
+}
+
+/* Radial Gradient Overlay */
+#global-canvas-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 255, 255, 0.15), transparent),
+        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(255, 60, 172, 0.1), transparent),
+        radial-gradient(ellipse 60% 50% at 20% 50%, rgba(139, 92, 246, 0.1), transparent),
+        radial-gradient(ellipse 80% 50% at 50% 120%, rgba(0, 255, 255, 0.08), transparent);
+    pointer-events: none;
+    z-index: 2;
+}
+
+[data-theme="light"] #global-canvas-container::before {
+    background:
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0, 102, 255, 0.08), transparent),
+        radial-gradient(ellipse 60% 50% at 80% 50%, rgba(255, 79, 158, 0.06), transparent),
+        radial-gradient(ellipse 60% 50% at 20% 50%, rgba(0, 224, 255, 0.06), transparent),
+        radial-gradient(ellipse 80% 50% at 50% 120%, rgba(0, 102, 255, 0.05), transparent);
+}
+
+/* Ensure body content is above canvas */
+body {
+    position: relative;
+}
+
+/* Ensure all main content is above canvas */
+.navbar,
+main,
+footer {
+    position: relative;
+    z-index: 10;
+}
+
+/* Hide hero canvas on landing page when global canvas is active */
+.has-global-canvas .hero-canvas {
+    display: none;
+}
+
+.has-global-canvas .hero-background {
+    display: none;
+}
+
+/* Adjust landing sections to work with global canvas */
+.has-global-canvas .landing-bg {
+    opacity: 0.3;
+}

@@ -24,9 +24,9 @@ const eventsData = [
         prize: "₹50,000",
         prizeBreakdown: "1st: ₹30,000 | 2nd: ₹15,000 | 3rd: ₹5,000",
         contact: {
-            name: "Rajesh Kumar",
-            phone: "+91 98765 43210",
-            email: "rajesh@eventverse.tech"
+            name: "TBA",
+            phone: "+91 12345 67890",
+            email: "info@eventverse.tech"
         },
         image: "💻",
         registrationLink: "#register"
@@ -51,9 +51,9 @@ const eventsData = [
         prize: "₹75,000",
         prizeBreakdown: "1st: ₹45,000 | 2nd: ₹20,000 | 3rd: ₹10,000",
         contact: {
-            name: "Rajesh Kumar",
-            phone: "+91 98765 43210",
-            email: "rajesh@eventverse.tech"
+            name: "TBA",
+            phone: "+91 12345 67890",
+            email: "info@eventverse.tech"
         },
         image: "🤖",
         registrationLink: "#register"
@@ -78,9 +78,9 @@ const eventsData = [
         prize: "₹40,000",
         prizeBreakdown: "1st: ₹25,000 | 2nd: ₹10,000 | 3rd: ₹5,000",
         contact: {
-            name: "Rajesh Kumar",
-            phone: "+91 98765 43210",
-            email: "rajesh@eventverse.tech"
+            name: "TBA",
+            phone: "+91 12345 67890",
+            email: "info@eventverse.tech"
         },
         image: "🎨",
         registrationLink: "#register"
@@ -105,9 +105,9 @@ const eventsData = [
         prize: "Free Entry",
         prizeBreakdown: "Certificate of Participation",
         contact: {
-            name: "Rajesh Kumar",
-            phone: "+91 98765 43210",
-            email: "rajesh@eventverse.tech"
+            name: "TBA",
+            phone: "+91 12345 67890",
+            email: "info@eventverse.tech"
         },
         image: "🧠",
         registrationLink: "#register"
@@ -132,9 +132,9 @@ const eventsData = [
         prize: "₹1,00,000",
         prizeBreakdown: "1st: ₹60,000 | 2nd: ₹25,000 | 3rd: ₹15,000",
         contact: {
-            name: "Rajesh Kumar",
-            phone: "+91 98765 43210",
-            email: "rajesh@eventverse.tech"
+            name: "TBA",
+            phone: "+91 12345 67890",
+            email: "info@eventverse.tech"
         },
         image: "⚡",
         registrationLink: "#register"
@@ -159,9 +159,9 @@ const eventsData = [
         prize: "₹30,000",
         prizeBreakdown: "1st: ₹20,000 | 2nd: ₹7,000 | 3rd: ₹3,000",
         contact: {
-            name: "Rajesh Kumar",
-            phone: "+91 98765 43210",
-            email: "rajesh@eventverse.tech"
+            name: "TBA",
+            phone: "+91 12345 67890",
+            email: "info@eventverse.tech"
         },
         image: "🧩",
         registrationLink: "#register"
@@ -294,9 +294,9 @@ const eventsData = [
         prize: "₹60,000",
         prizeBreakdown: "1st: ₹35,000 | 2nd: ₹15,000 | 3rd: ₹10,000",
         contact: {
-            name: "Rajesh Kumar",
-            phone: "+91 98765 43210",
-            email: "rajesh@eventverse.tech"
+            name: "TBA",
+            phone: "+91 12345 67890",
+            email: "info@eventverse.tech"
         },
         image: "🎮",
         registrationLink: "#register"
@@ -321,9 +321,9 @@ const eventsData = [
         prize: "₹40,000",
         prizeBreakdown: "1st: ₹25,000 | 2nd: ₹10,000 | 3rd: ₹5,000",
         contact: {
-            name: "Rajesh Kumar",
-            phone: "+91 98765 43210",
-            email: "rajesh@eventverse.tech"
+            name: "TBA",
+            phone: "+91 12345 67890",
+            email: "info@eventverse.tech"
         },
         image: "⚽",
         registrationLink: "#register"
@@ -348,9 +348,9 @@ const eventsData = [
         prize: "₹80,000",
         prizeBreakdown: "1st: ₹50,000 | 2nd: ₹20,000 | 3rd: ₹10,000",
         contact: {
-            name: "Rajesh Kumar",
-            phone: "+91 98765 43210",
-            email: "rajesh@eventverse.tech"
+            name: "TBA",
+            phone: "+91 12345 67890",
+            email: "info@eventverse.tech"
         },
         image: "🎯",
         registrationLink: "#register"
@@ -375,9 +375,9 @@ const eventsData = [
         prize: "₹30,000",
         prizeBreakdown: "1st: ₹18,000 | 2nd: ₹8,000 | 3rd: ₹4,000",
         contact: {
-            name: "Rajesh Kumar",
-            phone: "+91 98765 43210",
-            email: "rajesh@eventverse.tech"
+            name: "TBA",
+            phone: "+91 12345 67890",
+            email: "info@eventverse.tech"
         },
         image: "♟️",
         registrationLink: "#register"
@@ -402,9 +402,9 @@ const eventsData = [
         prize: "Free Entry",
         prizeBreakdown: "Certificate of Participation",
         contact: {
-            name: "Rajesh Kumar",
-            phone: "+91 98765 43210",
-            email: "rajesh@eventverse.tech"
+            name: "TBA",
+            phone: "+91 12345 67890",
+            email: "info@eventverse.tech"
         },
         image: "⛓️",
         registrationLink: "#register"
@@ -429,9 +429,9 @@ const eventsData = [
         prize: "Free Entry",
         prizeBreakdown: "Certificate of Participation",
         contact: {
-            name: "Rajesh Kumar",
-            phone: "+91 98765 43210",
-            email: "rajesh@eventverse.tech"
+            name: "TBA",
+            phone: "+91 12345 67890",
+            email: "info@eventverse.tech"
         },
         image: "🔒",
         registrationLink: "#register"
