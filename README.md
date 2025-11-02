@@ -256,8 +256,5 @@ This project is created for educational purposes as part of the WebCraft competi
 **Theme**: Digital Frontier / Cyberpunk UI
 **Focus**: Accessibility, Usability, Inclusivity
 
----
-
-**Built with ❤️ and accessibility in mind ♿**
 
 *"Technology should be accessible to everyone, regardless of ability."*
