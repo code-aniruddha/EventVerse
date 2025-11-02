@@ -22,6 +22,7 @@ const eventsData = [
         day: 1,
         location: "Computer Lab A",
         prize: "₹50,000",
+        fee: "₹299",
         prizeBreakdown: "1st: ₹30,000 | 2nd: ₹15,000 | 3rd: ₹5,000",
         contact: {
             name: "TBA",
@@ -49,6 +50,7 @@ const eventsData = [
         day: 2,
         location: "Main Arena",
         prize: "₹75,000",
+        fee: "₹499",
         prizeBreakdown: "1st: ₹45,000 | 2nd: ₹20,000 | 3rd: ₹10,000",
         contact: {
             name: "TBA",
@@ -76,6 +78,7 @@ const eventsData = [
         day: 1,
         location: "Computer Lab B",
         prize: "₹40,000",
+        fee: "₹249",
         prizeBreakdown: "1st: ₹25,000 | 2nd: ₹10,000 | 3rd: ₹5,000",
         contact: {
             name: "TBA",
@@ -130,6 +133,7 @@ const eventsData = [
         day: 2,
         location: "Innovation Hub",
         prize: "₹1,00,000",
+        fee: "₹599",
         prizeBreakdown: "1st: ₹60,000 | 2nd: ₹25,000 | 3rd: ₹15,000",
         contact: {
             name: "TBA",
@@ -157,6 +161,7 @@ const eventsData = [
         day: 3,
         location: "Auditorium",
         prize: "₹30,000",
+        fee: "₹199",
         prizeBreakdown: "1st: ₹20,000 | 2nd: ₹7,000 | 3rd: ₹3,000",
         contact: {
             name: "TBA",
@@ -184,6 +189,7 @@ const eventsData = [
         day: 2,
         location: "Main Stage",
         prize: "₹45,000",
+        fee: "₹299",
         prizeBreakdown: "1st: ₹25,000 | 2nd: ₹12,000 | 3rd: ₹8,000",
         contact: {
             name: "Priya Sharma",
@@ -211,6 +217,7 @@ const eventsData = [
         day: 3,
         location: "Main Stage",
         prize: "₹35,000",
+        fee: "₹249",
         prizeBreakdown: "1st: ₹20,000 | 2nd: ₹10,000 | 3rd: ₹5,000",
         contact: {
             name: "Priya Sharma",
@@ -238,6 +245,7 @@ const eventsData = [
         day: 1,
         location: "Amphitheater",
         prize: "₹50,000",
+        fee: "₹399",
         prizeBreakdown: "1st: ₹30,000 | 2nd: ₹15,000 | 3rd: ₹5,000",
         contact: {
             name: "Priya Sharma",
@@ -265,6 +273,7 @@ const eventsData = [
         day: 3,
         location: "Cafe Arena",
         prize: "₹25,000",
+        fee: "₹149",
         prizeBreakdown: "1st: ₹15,000 | 2nd: ₹7,000 | 3rd: ₹3,000",
         contact: {
             name: "Priya Sharma",
@@ -292,6 +301,7 @@ const eventsData = [
         day: 1,
         location: "Gaming Zone A",
         prize: "₹60,000",
+        fee: "₹399",
         prizeBreakdown: "1st: ₹35,000 | 2nd: ₹15,000 | 3rd: ₹10,000",
         contact: {
             name: "TBA",
@@ -319,6 +329,7 @@ const eventsData = [
         day: 2,
         location: "Gaming Zone B",
         prize: "₹40,000",
+        fee: "₹299",
         prizeBreakdown: "1st: ₹25,000 | 2nd: ₹10,000 | 3rd: ₹5,000",
         contact: {
             name: "TBA",
@@ -346,6 +357,7 @@ const eventsData = [
         day: 3,
         location: "Gaming Zone A",
         prize: "₹80,000",
+        fee: "₹499",
         prizeBreakdown: "1st: ₹50,000 | 2nd: ₹20,000 | 3rd: ₹10,000",
         contact: {
             name: "TBA",
@@ -373,6 +385,7 @@ const eventsData = [
         day: 2,
         location: "Indoor Sports Complex",
         prize: "₹30,000",
+        fee: "₹199",
         prizeBreakdown: "1st: ₹18,000 | 2nd: ₹8,000 | 3rd: ₹4,000",
         contact: {
             name: "TBA",
@@ -400,6 +413,7 @@ const eventsData = [
         day: 2,
         location: "Seminar Hall 2",
         prize: "Free Entry",
+        fee: "Free",
         prizeBreakdown: "Certificate of Participation",
         contact: {
             name: "TBA",
@@ -427,6 +441,7 @@ const eventsData = [
         day: 3,
         location: "Seminar Hall 1",
         prize: "Free Entry",
+        fee: "Free",
         prizeBreakdown: "Certificate of Participation",
         contact: {
             name: "TBA",
@@ -454,6 +469,7 @@ const eventsData = [
         day: 1,
         location: "Theater Hall",
         prize: "₹40,000",
+        fee: "₹299",
         prizeBreakdown: "1st: ₹25,000 | 2nd: ₹10,000 | 3rd: ₹5,000",
         contact: {
             name: "Priya Sharma",
@@ -481,6 +497,7 @@ const eventsData = [
         day: 3,
         location: "Exhibition Hall",
         prize: "₹20,000",
+        fee: "₹149",
         prizeBreakdown: "1st: ₹12,000 | 2nd: ₹5,000 | 3rd: ₹3,000",
         contact: {
             name: "Priya Sharma",
@@ -576,18 +593,33 @@ function initializeNavigation() {
     const navLinks = document.querySelectorAll('.nav-menu a');
 
     // Mobile menu toggle
-    if (navToggle) {
-        navToggle.addEventListener('click', function() {
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
             navToggle.setAttribute('aria-expanded', !isExpanded);
             navMenu.classList.toggle('active');
+
+            // Log for debugging
+            console.log('Nav toggle clicked, menu is now:', navMenu.classList.contains('active') ? 'open' : 'closed');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+                navMenu.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
         });
     }
 
     // Close menu when clicking nav links
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
-            navMenu.classList.remove('active');
+            if (navMenu) {
+                navMenu.classList.remove('active');
+            }
             if (navToggle) {
                 navToggle.setAttribute('aria-expanded', 'false');
             }
@@ -716,6 +748,10 @@ function renderEvents() {
                             ${event.prize}
                         </span>
                     </div>
+                    <div class="event-fee">
+                        <span aria-hidden="true">💰</span>
+                        Entry: <strong>${event.fee || 'Free'}</strong>
+                    </div>
                 </div>
             </article>
         `).join('');
@@ -792,6 +828,10 @@ function openEventModal(eventId) {
                 <span aria-hidden="true">🏆</span>
                 <strong>Prize:</strong> ${event.prize}
             </span>
+            <span class="modal-meta-item entry-fee-highlight">
+                <span aria-hidden="true">💰</span>
+                <strong>Entry Fee:</strong> <span class="fee-amount">${event.fee || 'Free'}</span>
+            </span>
         </div>
 
         <div class="modal-section">
@@ -821,7 +861,7 @@ function openEventModal(eventId) {
         </div>
 
         <div class="modal-actions">
-            <a href="register.html?event=${event.id}&name=${encodeURIComponent(event.name)}&fee=${encodeURIComponent(event.prize)}" class="btn btn-large btn-primary">Register for ${event.name}</a>
+            <a href="register.html?event=${event.id}&name=${encodeURIComponent(event.name)}&fee=${encodeURIComponent(event.fee || 'Free')}" class="btn btn-large btn-primary">Register for ${event.name}</a>
             <button onclick="closeEventModal()" class="btn btn-large btn-secondary">Close</button>
         </div>
     `;

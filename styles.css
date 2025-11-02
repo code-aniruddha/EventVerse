@@ -1011,6 +1011,24 @@ section {
     font-weight: 700;
 }
 
+.event-fee {
+    margin-top: var(--spacing-sm);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    background: linear-gradient(135deg, rgba(0, 255, 255, 0.1), rgba(255, 0, 255, 0.1));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: var(--font-size-sm);
+    color: var(--highlight);
+    border: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.event-fee strong {
+    color: #00FF88;
+    font-size: 1rem;
+}
+
 .no-results {
     text-align: center;
     padding: var(--spacing-xl);
@@ -1113,6 +1131,19 @@ section {
     align-items: center;
     gap: var(--spacing-xs);
     color: var(--text-secondary);
+}
+
+.modal-meta-item.entry-fee-highlight {
+    background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(0, 255, 255, 0.1));
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 136, 0.3);
+}
+
+.fee-amount {
+    color: #00FF88;
+    font-weight: 700;
+    font-size: 1.1rem;
 }
 
 .modal-section {
@@ -1651,8 +1682,8 @@ section {
 }
 
 .social-icon:hover {
-    background: var(--highlight);
-    color: var(--primary-bg);
+    background: var(--primary-bg);
+    color: black;
     border-color: var(--highlight);
     transform: translateY(-5px) rotate(5deg);
     box-shadow: 0 8px 25px var(--highlight-glow);

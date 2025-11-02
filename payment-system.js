@@ -3,14 +3,38 @@
 
 let selectedEvent = null;
 let registrationData = {};
+let initialized = false;
 
-document.addEventListener('DOMContentLoaded', function() {
+function initializePaymentSystem() {
+    if (initialized) {
+        console.log('Payment System: Already initialized, skipping');
+        return;
+    }
+
+    initialized = true;
+    console.log('Payment System: Initializing...');
+
     initEventRegistration();
     setupPaymentGateway();
     handleURLParameters();
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Payment System: DOMContentLoaded fired');
+
+    // Wait a bit for all DOM elements to be ready
+    setTimeout(initializePaymentSystem, 100);
 });
 
-// Initialize event-specific registration
+// Fallback for window.onload
+window.addEventListener('load', function() {
+    console.log('Payment System: window.load fired');
+
+    // Try again if not initialized
+    if (!initialized) {
+        setTimeout(initializePaymentSystem, 100);
+    }
+});// Initialize event-specific registration
 function initEventRegistration() {
     // Add "Register for this event" buttons to event modals
     const modalActions = document.querySelectorAll('.modal-actions');
@@ -77,13 +101,110 @@ function handleURLParameters() {
     const eventName = urlParams.get('name');
     const eventFee = urlParams.get('fee');
 
+    console.log('Payment System: URL params -', { eventId, eventName, eventFee });
+
     if (eventId && eventName) {
         // Pre-populate registration form
+        console.log('Payment System: Pre-populating form with event data');
         populateRegistrationForm(eventId, eventName, eventFee);
     } else {
-        // Show event selector dropdown if no event specified
-        addEventSelectorDropdown();
+        // Setup category-based event selection
+        console.log('Payment System: Setting up category-based event selection');
+        setupCategoryEventSelection();
     }
+}
+
+// Setup category and event dropdowns with dynamic population
+function setupCategoryEventSelection() {
+    const categorySelect = document.getElementById('reg-category');
+    const eventSelect = document.getElementById('reg-event');
+
+    if (!categorySelect || !eventSelect) {
+        console.log('Payment System: Category or event dropdown not found');
+        return;
+    }
+
+    // When category changes, populate event dropdown
+    categorySelect.addEventListener('change', function() {
+        const category = this.value;
+        console.log('Payment System: Category changed to', category);
+
+        // Clear existing events
+        eventSelect.innerHTML = '<option value="">Select an event</option>';
+
+        // Remove any existing payment section
+        const existingPaymentSection = document.getElementById('payment-section');
+        if (existingPaymentSection) {
+            existingPaymentSection.remove();
+        }
+
+        if (!category || category === '') {
+            eventSelect.innerHTML = '<option value="">First select a category above</option>';
+            eventSelect.disabled = true;
+            return;
+        }
+
+        // Enable event dropdown
+        eventSelect.disabled = false;
+
+        // Filter events by category
+        let filteredEvents = [];
+        if (category === 'all') {
+            filteredEvents = eventsData;
+        } else {
+            filteredEvents = eventsData.filter(e => e.category === category);
+        }
+
+        // Populate event dropdown
+        filteredEvents.forEach(event => {
+            const option = document.createElement('option');
+            option.value = event.id;
+            option.textContent = `${event.name} - ${event.prize}`;
+            option.dataset.fee = event.prize;
+            option.dataset.name = event.name;
+            eventSelect.appendChild(option);
+        });
+
+        console.log('Payment System: Populated', filteredEvents.length, 'events');
+    });
+
+    // When event is selected, show payment section
+    eventSelect.addEventListener('change', function() {
+        const eventId = this.value;
+
+        if (!eventId || eventId === '') {
+            // Remove payment section if no event selected
+            const existingPaymentSection = document.getElementById('payment-section');
+            if (existingPaymentSection) {
+                existingPaymentSection.remove();
+            }
+            return;
+        }
+
+        const selectedOption = this.options[this.selectedIndex];
+        const eventName = selectedOption.dataset.name;
+        const eventFee = selectedOption.dataset.fee;
+
+        console.log('Payment System: Event selected -', { eventId, eventName, eventFee });
+
+        // Find the event object
+        const event = eventsData.find(e => e.id == eventId);
+        if (event) {
+            selectedEvent = event;
+
+            // Remove existing payment section if any
+            const existingPaymentSection = document.getElementById('payment-section');
+            if (existingPaymentSection) {
+                existingPaymentSection.remove();
+            }
+
+            // Add payment section
+            addPaymentSection(event);
+        }
+    });
+
+    // Initially disable event dropdown
+    eventSelect.disabled = true;
 }
 
 // Populate registration form with event details
@@ -112,9 +233,14 @@ function populateRegistrationForm(eventId, eventName, eventFee) {
             <input type="hidden" id="selected-event-id" name="event-id" value="${eventId}">
         `;
 
-        // Insert at the beginning of the form
-        const firstInput = form.querySelector('.form-group');
-        form.insertBefore(eventSection, firstInput);
+        // Insert at the beginning of the form (before form-grid)
+        const formGrid = form.querySelector('.form-grid');
+        if (formGrid) {
+            form.insertBefore(eventSection, formGrid);
+        } else {
+            // If no form-grid, insert at the beginning
+            form.insertBefore(eventSection, form.firstChild);
+        }
     }
 
     // Add payment section
@@ -122,9 +248,22 @@ function populateRegistrationForm(eventId, eventName, eventFee) {
 }
 
 // Add payment options section
-function addPaymentSection(eventFee) {
+function addPaymentSection(event) {
     const form = document.getElementById('registration-form');
-    if (!form || document.getElementById('payment-section')) return;
+    if (!form) {
+        console.error('Payment System: Form not found');
+        return;
+    }
+
+    if (document.getElementById('payment-section')) {
+        console.log('Payment System: Payment section already exists, removing old one');
+        document.getElementById('payment-section').remove();
+    }
+
+    // Get event fee - either from event object or as a string
+    const eventFee = typeof event === 'object' ? event.fee : event;
+
+    console.log('Payment System: Adding payment section with fee:', eventFee);
 
     const paymentSection = document.createElement('div');
     paymentSection.id = 'payment-section';
@@ -162,12 +301,14 @@ function addPaymentSection(eventFee) {
     `;
 
     // Insert before submit button
-    const submitBtn = form.querySelector('.btn-submit');
-    form.insertBefore(paymentSection, submitBtn);
-
-    // Update submit button text
+    const submitBtn = form.querySelector('button[type="submit"]');
     if (submitBtn) {
+        form.insertBefore(paymentSection, submitBtn);
+        // Update submit button text
         submitBtn.textContent = 'Proceed to Payment';
+    } else {
+        // If no submit button found, append to form
+        form.appendChild(paymentSection);
     }
 }
 
@@ -177,17 +318,37 @@ function changeEvent() {
 }
 
 // Add event selector dropdown when no event is pre-selected
-function addEventSelectorDropdown() {
+function addEventSelectorDropdown(retryCount = 0) {
+    console.log('Payment System: addEventSelectorDropdown called (attempt', retryCount + 1, ')');
+
     const form = document.getElementById('registration-form');
-    if (!form || document.getElementById('event-selection-section')) return;
+    if (!form) {
+        console.error('Payment System: Registration form not found');
+
+        // Retry up to 5 times
+        if (retryCount < 5) {
+            console.log('Payment System: Retrying in 200ms...');
+            setTimeout(() => addEventSelectorDropdown(retryCount + 1), 200);
+        } else {
+            console.error('Payment System: Failed to find registration form after 5 attempts');
+        }
+        return;
+    }
+
+    if (document.getElementById('event-selection-section')) {
+        console.log('Payment System: Event selection section already exists');
+        return;
+    }
 
     // Check if eventsData is available
     if (typeof eventsData === 'undefined') {
-        console.error('eventsData not loaded yet');
+        console.warn('Payment System: eventsData not loaded yet, retrying in 100ms');
         // Retry after a short delay
-        setTimeout(addEventSelectorDropdown, 100);
+        setTimeout(() => addEventSelectorDropdown(retryCount), 100);
         return;
     }
+
+    console.log('Payment System: Creating event selector with', eventsData.length, 'events');
 
     const eventSection = document.createElement('div');
     eventSection.id = 'event-selection-section';
@@ -245,9 +406,14 @@ function addEventSelectorDropdown() {
         </div>
     `;
 
-    // Insert at the beginning of the form
-    const firstInput = form.querySelector('.form-group');
-    form.insertBefore(eventSection, firstInput);
+    // Insert at the beginning of the form (before form-grid)
+    const formGrid = form.querySelector('.form-grid');
+    if (formGrid) {
+        form.insertBefore(eventSection, formGrid);
+    } else {
+        // If no form-grid, insert at the beginning
+        form.insertBefore(eventSection, form.firstChild);
+    }
 
     // Add event listener for dropdown change
     const eventSelector = document.getElementById('event-selector');
@@ -510,7 +676,8 @@ function showRegistrationSuccess(registration) {
     successDiv.innerHTML = `
         <div class="success-content glass-morph">
             <div class="success-icon">✓</div>
-            <h2>Registration Successful!</h2>
+            <h2>🎉 Registration & Payment Successful!</h2>
+            <p class="payment-status">✅ Payment Completed Successfully</p>
             <p>Thank you for registering for <strong>${selectedEvent?.name || 'the event'}</strong></p>
 
             <div class="registration-details">
@@ -526,16 +693,20 @@ function showRegistrationSuccess(registration) {
                     <span>Email:</span>
                     <strong>${registration.email}</strong>
                 </div>
+                <div class="detail-row payment-highlight">
+                    <span>Payment Status:</span>
+                    <strong style="color: #4ade80;">✓ PAID</strong>
+                </div>
                 ${registration.paymentResponse ? `
                 <div class="detail-row">
-                    <span>Payment ID:</span>
+                    <span>Transaction ID:</span>
                     <strong>${Object.values(registration.paymentResponse)[0]}</strong>
                 </div>
                 ` : ''}
             </div>
 
             <div class="success-actions">
-                <p>✉️ A confirmation email has been sent to ${registration.email}</p>
+                <p>✉️ Confirmation email with payment receipt sent to ${registration.email}</p>
                 <button class="btn btn-primary" onclick="window.location.href='index.html'">Back to Home</button>
                 <button class="btn btn-secondary" onclick="downloadReceipt()">Download Receipt</button>
             </div>
