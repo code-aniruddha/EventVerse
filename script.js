@@ -595,55 +595,51 @@ function initializeNavigation() {
     // Mobile menu toggle
     if (navToggle && navMenu) {
         navToggle.addEventListener('click', function(e) {
-            e.preventDefault();
             e.stopPropagation();
             const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
             navToggle.setAttribute('aria-expanded', !isExpanded);
             navMenu.classList.toggle('active');
 
-            // Log for debugging
             console.log('Nav toggle clicked, menu is now:', navMenu.classList.contains('active') ? 'open' : 'closed');
         });
 
         // Close menu when clicking outside
         document.addEventListener('click', function(e) {
-            if (!navMenu.contains(e.target) && !navToggle.contains(e.target)) {
+            if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
                 navToggle.setAttribute('aria-expanded', 'false');
             }
         });
     }
 
-    // Close menu when clicking nav links
+    // Handle nav link clicks
     navLinks.forEach(link => {
-        link.addEventListener('click', function() {
+        link.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+
+            // Close mobile menu
             if (navMenu) {
                 navMenu.classList.remove('active');
             }
             if (navToggle) {
                 navToggle.setAttribute('aria-expanded', 'false');
             }
-        });
-    });
 
-    // Smooth scroll behavior
-    navLinks.forEach(link => {
-        if (link.getAttribute('href').startsWith('#')) {
-            link.addEventListener('click', function(e) {
+            // Handle same-page anchor links
+            if (href && href.startsWith('#')) {
                 e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
+                const targetElement = document.querySelector(href);
                 if (targetElement) {
                     targetElement.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start'
                     });
-                    // Set focus to target for screen readers
                     targetElement.setAttribute('tabindex', '-1');
                     targetElement.focus();
                 }
-            });
-        }
+            }
+            // For other links (like events.html, register.html), allow normal navigation
+        });
     });
 }
 

@@ -212,6 +212,24 @@ function populateRegistrationForm(eventId, eventName, eventFee) {
     const form = document.getElementById('registration-form');
     if (!form) return;
 
+    // Hide category and event dropdowns since event is pre-selected
+    const categoryGroup = document.querySelector('#reg-category')?.closest('.form-group');
+    const eventGroup = document.querySelector('#reg-event')?.closest('.form-group');
+
+    if (categoryGroup) {
+        categoryGroup.style.display = 'none';
+        // Remove required attribute since it's hidden
+        const categorySelect = document.getElementById('reg-category');
+        if (categorySelect) categorySelect.removeAttribute('required');
+    }
+
+    if (eventGroup) {
+        eventGroup.style.display = 'none';
+        // Remove required attribute since it's hidden
+        const eventSelect = document.getElementById('reg-event');
+        if (eventSelect) eventSelect.removeAttribute('required');
+    }
+
     // Add event selection section if not exists
     if (!document.getElementById('event-selection-section')) {
         const eventSection = document.createElement('div');

@@ -59,6 +59,10 @@ function createEventCard(event, index) {
                             ${event.prize}
                         </span>
                     </div>
+                    <div class="event-fee">
+                        <span aria-hidden="true">💰</span>
+                        Entry: <strong>${event.fee || 'Free'}</strong>
+                    </div>
                 </div>
             </article>
     `;
@@ -105,7 +109,7 @@ function openEventModal(eventId) {
     };
 
     modalBody.innerHTML = `
-         <h2 class="modal-title" id="modal-title">${event.name}</h2>
+          <h2 class="modal-title" id="modal-title">${event.name}</h2>
         <div class="modal-meta">
             <span class="modal-meta-item">
                 <span aria-hidden="true">📅</span>
@@ -122,6 +126,10 @@ function openEventModal(eventId) {
             <span class="modal-meta-item">
                 <span aria-hidden="true">🏆</span>
                 <strong>Prize:</strong> ${event.prize}
+            </span>
+            <span class="modal-meta-item entry-fee-highlight">
+                <span aria-hidden="true">💰</span>
+                <strong>Entry Fee:</strong> <span class="fee-amount">${event.fee || 'Free'}</span>
             </span>
         </div>
 
@@ -152,7 +160,7 @@ function openEventModal(eventId) {
         </div>
 
         <div class="modal-actions">
-            <a href="${event.registrationLink}" class="btn btn-large btn-primary">Register Now</a>
+            <a href="register.html?event=${event.id}&name=${encodeURIComponent(event.name)}&fee=${encodeURIComponent(event.fee || 'Free')}" class="btn btn-large btn-primary">Register for ${event.name}</a>
             <button onclick="closeEventModal()" class="btn btn-large btn-secondary">Close</button>
         </div>
     `;
