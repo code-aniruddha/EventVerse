@@ -31,6 +31,8 @@ function createEventCard(event, index) {
     card.className = 'event-card';
     card.style.animationDelay = `${index * 0.1}s`;
     card.setAttribute('data-category', event.category);
+    card.setAttribute('data-aos', 'fade-up');
+    card.setAttribute('data-aos-delay', (index * 100).toString());
 
     // Category badge color
     const categoryColors = {

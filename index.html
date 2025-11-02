@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="landing.css">
     <link rel="stylesheet" href="global-canvas.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="payment-system.css">
+    <!-- AOS Library for Scroll Animations -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
 <body class="landing-page">
@@ -25,7 +29,7 @@
     <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="container">
             <div class="nav-brand">
-                <h1 class="logo">EventVersE</h1>
+                <h1 class="logo">EventVerse</h1>
             </div>
             <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false"
                 aria-controls="nav-menu">
@@ -58,32 +62,32 @@
                 <div class="hero-top-border" aria-hidden="true"></div>
 
                 <!-- Subheading -->
-                <p class="hero-subheading">THE FUTURE IS HERE</p>
+                <p class="hero-subheading" data-aos="fade-down">THE FUTURE IS HERE</p>
 
                 <!-- Main Headline -->
-                <h2 class="hero-headline">
+                <h2 class="hero-headline" data-aos="zoom-in" data-aos-delay="200">
                     <span class="hero-headline-text">DIGITAL FRONTIER | 2026 FESTIVAL HUB</span>
                 </h2>
 
                 <!-- Main Content Box -->
-                <div class="hero-main-box">
+                <div class="hero-main-box" data-aos="fade-up" data-aos-delay="400">
                     <div class="hero-details">
-                        <div class="hero-info">
+                        <div class="hero-info" data-aos="fade-right" data-aos-delay="600">
                             <span class="icon" aria-hidden="true">📅</span>
                             <span>March 15-17, 2026</span>
                         </div>
-                        <div class="hero-info">
+                        <div class="hero-info" data-aos="fade-right" data-aos-delay="700">
                             <span class="icon" aria-hidden="true">📍</span>
                             <span>Tech Campus Arena</span>
                         </div>
-                        <div class="hero-info">
+                        <div class="hero-info" data-aos="fade-right" data-aos-delay="800">
                             <span class="icon" aria-hidden="true">🏆</span>
                             <span>₹5,00,000+ Prize Pool</span>
                         </div>
                     </div>
 
                     <!-- CTAs -->
-                    <div class="hero-cta">
+                    <div class="hero-cta" data-aos="fade-up" data-aos-delay="900">
                         <a href="schedule.html" class="btn btn-large btn-primary hero-primary-cta">EXPLORE FULL
                             SCHEDULE</a>
                         <a href="events.html" class="hero-secondary-cta">VIEW ALL EVENTS</a>
@@ -99,8 +103,8 @@
         <section class="about-section landing-section" aria-labelledby="about-heading">
             <div class="landing-bg" aria-hidden="true"></div>
             <div class="container">
-                <h2 id="about-heading" class="section-title">About EventVerse</h2>
-                <p class="section-description">
+                <h2 id="about-heading" class="section-title" data-aos="fade-up">About EventVerse</h2>
+                <p class="section-description" data-aos="fade-up" data-aos-delay="100">
                     EventVerse is more than just a tech fest — it's a unified digital experience that brings together
                     innovation, competition, and creativity. From cutting-edge technical challenges to vibrant cultural
                     performances, workshops led by industry experts, and thrilling gaming tournaments, EventVerse offers
@@ -108,19 +112,19 @@
                     environment.
                 </p>
                 <div class="stats-grid">
-                    <div class="stat-card">
+                    <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
                         <div class="stat-number">50+</div>
                         <div class="stat-label">Events</div>
                     </div>
-                    <div class="stat-card">
+                    <div class="stat-card" data-aos="zoom-in" data-aos-delay="300">
                         <div class="stat-number">3000+</div>
                         <div class="stat-label">Participants</div>
                     </div>
-                    <div class="stat-card">
+                    <div class="stat-card" data-aos="zoom-in" data-aos-delay="400">
                         <div class="stat-number">₹5L+</div>
                         <div class="stat-label">Prize Money</div>
                     </div>
-                    <div class="stat-card">
+                    <div class="stat-card" data-aos="zoom-in" data-aos-delay="500">
                         <div class="stat-number">30+</div>
                         <div class="stat-label">Colleges</div>
                     </div>
@@ -132,14 +136,15 @@
         <section class="featured-events-section landing-section" aria-labelledby="featured-heading">
             <div class="landing-bg" aria-hidden="true"></div>
             <div class="container">
-                <h2 id="featured-heading" class="section-title">Featured Events</h2>
-                <p class="section-description">Explore our most exciting events across multiple categories</p>
+                <h2 id="featured-heading" class="section-title" data-aos="fade-up">Featured Events</h2>
+                <p class="section-description" data-aos="fade-up" data-aos-delay="100">Explore our most exciting events
+                    across multiple categories</p>
 
                 <div id="featured-events-grid" class="events-grid">
                     <!-- Featured events will be dynamically inserted here by JavaScript -->
                 </div>
 
-                <div class="view-all-cta">
+                <div class="view-all-cta" data-aos="fade-up">
                     <a href="events.html" class="btn btn-large btn-primary">
                         VIEW ALL EVENTS
                         <span aria-hidden="true"> →</span>
@@ -314,9 +319,21 @@
 
     <!-- Three.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- AOS Library -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="global-canvas.js"></script>
     <script src="script.js"></script>
     <script src="landing.js"></script>
+    <script src="smooth-scroll.js"></script>
+    <script src="payment-system.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    </script>
 </body>
 
 </html>

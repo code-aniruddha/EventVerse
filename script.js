@@ -821,7 +821,7 @@ function openEventModal(eventId) {
         </div>
 
         <div class="modal-actions">
-            <a href="${event.registrationLink}" class="btn btn-large btn-primary">Register Now</a>
+            <a href="register.html?event=${event.id}&name=${encodeURIComponent(event.name)}&fee=${encodeURIComponent(event.prize)}" class="btn btn-large btn-primary">Register for ${event.name}</a>
             <button onclick="closeEventModal()" class="btn btn-large btn-secondary">Close</button>
         </div>
     `;

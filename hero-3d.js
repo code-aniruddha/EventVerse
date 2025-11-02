@@ -73,7 +73,7 @@
     scene.add(innerShape);
 
     // Create particle system
-    const particleCount = 150;
+    const particleCount = 200;
     const particlesGeometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const velocities = [];
@@ -168,8 +168,8 @@
         time += 0.01;
 
         // Smooth mouse movement
-        mouseX += (targetMouseX - mouseX) * 0.05;
-        mouseY += (targetMouseY - mouseY) * 0.05;
+        mouseX += (targetMouseX - mouseX) * 0.09;
+        mouseY += (targetMouseY - mouseY) * 0.09;
 
         // Rotate main shape
         mainShape.rotation.x += 0.003;

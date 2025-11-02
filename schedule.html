@@ -8,6 +8,10 @@
     <title>Schedule - EventVerse Tech Fest</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="global-canvas.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="payment-system.css">
+    <!-- AOS Library for Scroll Animations -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 
 <body>
@@ -150,8 +154,20 @@
 
     <!-- Three.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- AOS Library -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="global-canvas.js"></script>
     <script src="script.js"></script>
+    <script src="smooth-scroll.js"></script>
+    <script src="payment-system.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    </script>
 </body>
 
 </html>
