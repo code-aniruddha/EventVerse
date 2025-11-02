@@ -450,6 +450,7 @@ textarea:focus {
     background: linear-gradient(135deg, var(--highlight), var(--highlight-secondary));
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask-composite: exclude;
     pointer-events: none;
 }
@@ -494,6 +495,74 @@ textarea:focus {
     gap: var(--spacing-md);
     justify-content: center;
     flex-wrap: wrap;
+}
+
+/* Primary CTA - Cyan Gradient Button */
+.hero-primary-cta {
+    background: linear-gradient(135deg, var(--highlight), var(--interactive-glow));
+    color: var(--primary-bg);
+    padding: var(--spacing-md) var(--spacing-xl);
+    border: none;
+    border-radius: 12px;
+    font-size: var(--font-size-md);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    box-shadow: 0 4px 20px var(--highlight-glow);
+    letter-spacing: 0.5px;
+}
+
+.hero-primary-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px var(--highlight-glow);
+}
+
+.hero-primary-cta:active {
+    transform: translateY(-1px);
+}
+
+/* Secondary CTA - Magenta Text Link */
+.hero-secondary-cta {
+    color: var(--highlight-secondary);
+    font-size: var(--font-size-md);
+    font-weight: 600;
+    text-decoration: none;
+    position: relative;
+    padding: var(--spacing-sm) 0;
+    transition: all var(--transition-normal);
+    letter-spacing: 0.5px;
+}
+
+.hero-secondary-cta::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--highlight-secondary);
+    transition: width var(--transition-normal);
+}
+
+.hero-secondary-cta:hover {
+    text-shadow: 0 0 10px var(--highlight-secondary-glow);
+}
+
+.hero-secondary-cta:hover::after {
+    width: 100%;
+}
+
+/* Bottom Border - Cyan to Magenta Gradient */
+.hero-bottom-border {
+    height: 3px;
+    background: linear-gradient(90deg, var(--highlight) 0%, var(--highlight-secondary) 100%);
+    margin-top: var(--spacing-xl);
+    border-radius: 2px;
+    box-shadow: 0 0 10px var(--highlight-glow);
 }
 
 /* ============================================
@@ -1174,8 +1243,8 @@ section {
 .form-group input,
 .form-group select {
     padding: var(--spacing-sm);
-    background: var(--secondary-bg);
-    border: 2px solid var(--secondary-bg);
+    background: var(--tertiary-bg);
+    border: 2px solid var(--tertiary-bg);
     border-radius: 6px;
     color: var(--text-primary);
     font-size: var(--font-size-base);
@@ -1184,8 +1253,8 @@ section {
 
 .form-group input:focus,
 .form-group select:focus {
-    border-color: var(--highlight);
-    box-shadow: 0 0 0 3px var(--highlight-glow);
+    border-color: var(--interactive-glow);
+    box-shadow: 0 0 0 3px var(--interactive-glow-rgba);
 }
 
 .form-group input.error,
