@@ -592,36 +592,50 @@ function initializeNavigation() {
     const navMenu = document.querySelector('.nav-menu');
     const navLinks = document.querySelectorAll('.nav-menu a');
 
-    // Mobile menu toggle
+    // Mobile menu toggle - both click and touch
     if (navToggle && navMenu) {
-        navToggle.addEventListener('click', function(e) {
+        function toggleMenu(e) {
             e.stopPropagation();
+            e.preventDefault();
             const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
             navToggle.setAttribute('aria-expanded', !isExpanded);
+            navToggle.classList.toggle('active');
             navMenu.classList.toggle('active');
-
             console.log('Nav toggle clicked, menu is now:', navMenu.classList.contains('active') ? 'open' : 'closed');
-        });
+        }
 
-        // Close menu when clicking outside
+        navToggle.addEventListener('click', toggleMenu);
+        navToggle.addEventListener('touchstart', toggleMenu);
+
+        // Close menu when clicking/tapping outside
         document.addEventListener('click', function(e) {
             if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+
+        document.addEventListener('touchstart', function(e) {
+            if (!navMenu.contains(e.target) && !navToggle.contains(e.target) && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
                 navToggle.setAttribute('aria-expanded', 'false');
             }
         });
     }
 
-    // Handle nav link clicks
+    // Handle nav link clicks - both click and touch
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
+        function handleLinkClick(e) {
+            const href = link.getAttribute('href');
 
             // Close mobile menu
             if (navMenu) {
                 navMenu.classList.remove('active');
             }
             if (navToggle) {
+                navToggle.classList.remove('active');
                 navToggle.setAttribute('aria-expanded', 'false');
             }
 
@@ -639,6 +653,14 @@ function initializeNavigation() {
                 }
             }
             // For other links (like events.html, register.html), allow normal navigation
+        }
+
+        link.addEventListener('click', handleLinkClick);
+        link.addEventListener('touchstart', function(e) {
+            e.stopPropagation();
+        });
+        link.addEventListener('touchend', function(e) {
+            handleLinkClick(e);
         });
     });
 }

@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="EventVerse 2026 - Event Schedule and Timeline">
     <title>Schedule - EventVerse Tech Fest</title>
+
+    <!-- Load Lenis FIRST in head for instant availability -->
+    <script src="https://cdn.jsdelivr.net/gh/darkroomengineering/lenis@latest/bundled/lenis.js"></script>
+
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="global-canvas.css">
     <link rel="stylesheet" href="animations.css">
@@ -152,20 +156,28 @@
         </div>
     </footer>
 
+    <!-- Lenis loaded in head -->
     <!-- Three.js Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Load smooth scroll BEFORE other scripts -->
+    <script src="smooth-scroll.js"></script>
     <!-- AOS Library -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="global-canvas.js"></script>
     <script src="script.js"></script>
-    <script src="smooth-scroll.js"></script>
     <script src="payment-system.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100
+        // Initialize AOS with Lenis compatibility
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                AOS.init({
+                    duration: 800,
+                    once: true,
+                    offset: 100,
+                    disable: false,
+                    mirror: false
+                });
+            }, 150);
         });
     </script>
 </body>

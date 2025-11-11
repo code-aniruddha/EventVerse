@@ -80,8 +80,28 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto; /* Lenis handles smooth scroll */
     font-size: var(--font-size-base);
+}
+
+html.lenis {
+    height: auto;
+}
+
+.lenis.lenis-smooth {
+    scroll-behavior: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+    overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+    pointer-events: none;
 }
 
 body {
@@ -189,13 +209,35 @@ textarea:focus {
     padding: var(--spacing-xs);
     z-index: 10001;
     position: relative;
+    -webkit-appearance: none;
+    appearance: none;
+    outline: none;
+}
+
+.nav-toggle:active,
+.nav-toggle:focus {
+    outline: 2px solid var(--highlight);
+    outline-offset: 2px;
 }
 
 .nav-toggle .hamburger {
     width: 25px;
     height: 3px;
     background: var(--highlight);
-    transition: var(--transition-fast);
+    transition: all var(--transition-fast);
+    border-radius: 2px;
+}
+
+.nav-toggle.active .hamburger:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+}
+
+.nav-toggle.active .hamburger:nth-child(2) {
+    opacity: 0;
+}
+
+.nav-toggle.active .hamburger:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg);
 }
 
 .nav-menu {
@@ -1799,10 +1841,17 @@ section {
         touch-action: manipulation;
         -webkit-user-select: none;
         user-select: none;
+        transition: background 0.2s ease;
+    }
+
+    .nav-menu a:hover,
+    .nav-menu a:active {
+        background: rgba(0, 255, 255, 0.15);
+        color: var(--highlight);
     }
 
     .nav-menu a:active {
-        background: rgba(0, 255, 255, 0.1);
+        background: rgba(0, 255, 255, 0.2);
     }
 
     .hero-details {
@@ -1917,5 +1966,198 @@ section {
 
     html {
         scroll-behavior: auto;
+    }
+}
+
+/* ============================================
+   LENIS SMOOTH SCROLL & ANIMATIONS
+   ============================================ */
+
+/* Scroll direction indicators */
+body.scroll-down {
+    --scroll-direction: 1;
+}
+
+body.scroll-up {
+    --scroll-direction: -1;
+}
+
+/* Scroll progress indicator */
+.scroll-indicator {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--highlight), var(--highlight-secondary));
+    box-shadow: 0 0 10px var(--highlight-glow);
+    transform-origin: left;
+    transform: scaleX(0);
+    z-index: 9998;
+    pointer-events: none;
+}
+
+/* Back to top button */
+.back-to-top {
+    position: fixed;
+    bottom: -60px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, var(--highlight), var(--highlight-secondary));
+    color: var(--primary-bg);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.4);
+    transition: all var(--transition-normal) ease;
+    z-index: 9997;
+}
+
+.back-to-top.visible {
+    bottom: 30px;
+    opacity: 1;
+    pointer-events: all;
+}
+
+.back-to-top:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 255, 255, 0.6);
+}
+
+.back-to-top:active {
+    transform: translateY(-2px);
+}
+
+/* Page transition overlay */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-bg);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.page-transition.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.page-transition.fade-out {
+    opacity: 0;
+}
+
+.page-transition canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+}
+
+.page-transition-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.page-transition-spinner {
+    width: 60px;
+    height: 60px;
+    border: 3px solid rgba(0, 255, 255, 0.2);
+    border-top-color: var(--highlight);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.transition-text {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Reveal animation for scroll */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Parallax elements */
+[data-parallax] {
+    will-change: transform;
+}
+
+/* Enhanced smooth scroll for links */
+a[href^="#"] {
+    position: relative;
+}
+
+/* Scroll velocity-based effects */
+body.scroll-down .navbar {
+    /* Subtle effect when scrolling down */
+    box-shadow: 0 4px 20px rgba(0, 255, 255, 0.1);
+}
+
+body.scroll-up .navbar {
+    /* More prominent when scrolling up */
+    box-shadow: 0 4px 30px rgba(0, 255, 255, 0.2);
+}
+
+/* Mobile optimizations for Lenis */
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: -60px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.25rem;
+    }
+
+    .back-to-top.visible {
+        bottom: 15px;
+    }
+
+    .page-transition-spinner {
+        width: 50px;
+        height: 50px;
+    }
+
+    .transition-text {
+        font-size: var(--font-size-xs);
     }
 }
